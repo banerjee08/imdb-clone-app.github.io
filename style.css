@@ -21,7 +21,7 @@ nav,
 nav{
     height: 40px;
     display: flex;
-    padding: 15px 25px;
+    padding: 25px 25px;
     justify-content: space-between;
     align-items: center;
     /* border: 1px solid red; */
@@ -31,7 +31,7 @@ nav{
 
 .logo{
     width: 100px;
-    padding: 10px 0;
+    margin: 10px 0;
 }
 
 .menu{
@@ -52,9 +52,19 @@ nav{
     cursor: pointer;
 }
 
+.favourite{
+    text-decoration: none;
+    color: #ffffff
+}
+
+.favourite:hover,
+.favourite:active{
+    color: #f4c518;
+    text-decoration: none;
+}
+
 .container{
     padding: 10px 25px;
-    /* border: 1px red solid; */
 }
 
 .header{
@@ -176,11 +186,13 @@ footer{
 .star-rating{
     /* border: 1px blue solid; */
     display: flex;
+    align-items: center;
 }
 
 .star-rating p{
     margin: 0;
     display: flex;
+    align-items: center;
 }
 
 .imdb-rating{
@@ -204,4 +216,51 @@ footer{
 
 .fa-play{
     margin-right: 10px;
+}
+
+/*********** Movie-page *********************/
+
+/* typography */
+.movie-title{
+    font-size: 30px;
+    /* border: 1px red solid; */
+}
+
+.runtime{
+    display: flex;
+    /* border: 1px red solid; */
+    gap: 15px;
+}
+
+.runtime p{
+    margin: 0;
+    font-size: 15px;
+}
+
+.movie-star-rating{
+    padding: 15px 0;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.movie-star-rating p{
+    margin-right: 25px;
+}
+
+.movie-page-star{
+    margin-left: 10px;
+}
+
+.detailed-summary{
+    padding: 25px 0;
+}
+
+/* .detailed-summary p{
+    font-weight: 700;
+} */
+
+.highlight{
+    color: #5699ef;
+    font-weight: 400;
+    padding-left: 25px;
 }
