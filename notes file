@@ -1,72 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/c8b6d9a06a.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-
-    <title>Document</title>
-</head>
-
-<body>
-    <!-- navigation bar -->
-    <nav>
-        <!-- logo -->
-        <a href="./index.html">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/2560px-IMDB_Logo_2016.svg.png" alt="imdb logo" class="logo">
-        </a>
-        <!-- menu -->
-        <div class="menu">
-            <img src="./photos/menu.png" alt="menu" class="menu-img">
-            <p>Menu</p>
-        </div>
-        <!-- search container -->
-        <div class="search-container">
-                <!-- search input -->
-                <input type="text" class="search-input" id="search-input" placeholder="Search iMDb..." id="movie-search-box" onkeyup="findMovies()" onclick="findMovies()">
-                <!-- search list -->
-                <div class="search-list" id="search-list">
-                    <!-- list here -->
-                    <div class="search-list-item hide-search-list">
-                        <div class="search-item-thumbnail">
-                            <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="">
-                        </div>
-                        <div class="search-item-info">
-                            <div>
-                                <h4>The fast and the furious</h4>
-                                <p>2022</p>
-                            </div>
-                            <div class="add-to-favourites-btn">
-                                <p>
-                                    Add to favorites
-                                    <i class="fa-regular fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <!-- end of search container -->
-        <p><a href="./favourites.html" class="favourite">Favourites</a></p>
-        <p>Sign in</p>
-    </nav>
 
     <section class="container">
         <div class="header">
-    
+
             <!-- hero section -->
             <div class="hero">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/706b9474134343.5c239806af449.jpg" alt="movie poster" class="hero-poster">
             </div>
             <div class="new-features">
                 <p class="new-features-title">New Features</p>
-    
+
                 <!-- trailer section -->
                 <div class="trailer-1">
                     <img src="https://i.etsystatic.com/13367669/r/il/8adffe/1506815473/il_570xN.1506815473_lb94.jpg" alt="trailer poster" class="poster-trailer">
@@ -90,9 +32,9 @@
                     </div>
                 </div>
             </div>
-    
+
         </div>
-    
+
         <!-- Explore Section -->
         <div class="explore">
             <h3 class="explore-title">Explore Movies & TV shows</h3>
@@ -113,28 +55,7 @@
                         <p>John Wick</p>
                         <p class="watch-now">Watch Now</p>
                         <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <a href="./movie-page.html">
-                        <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    </a>
-                    <!-- <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster"> -->
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
+
                         <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
                         <!-- </div> -->
                     </div>
@@ -152,7 +73,7 @@
                         <p>John Wick</p>
                         <p class="watch-now">Watch Now</p>
                         <!-- <div class="watch-trailer"> -->
-    
+
                         <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
                         <!-- </div> -->
                     </div>
@@ -170,7 +91,7 @@
                         <p>John Wick</p>
                         <p class="watch-now">Watch Now</p>
                         <!-- <div class="watch-trailer"> -->
-    
+
                         <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
                         <!-- </div> -->
                     </div>
@@ -188,7 +109,7 @@
                         <p>John Wick</p>
                         <p class="watch-now">Watch Now</p>
                         <!-- <div class="watch-trailer"> -->
-    
+
                         <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
                         <!-- </div> -->
                     </div>
@@ -206,16 +127,34 @@
                         <p>John Wick</p>
                         <p class="watch-now">Watch Now</p>
                         <!-- <div class="watch-trailer"> -->
-    
+
                         <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
                         <!-- </div> -->
                     </div>
                 </div>
-    
+                <div class="movie-1">
+                    <!-- movie poster -->
+                    <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
+                    <!-- movie details -->
+                    <div class="movie-details">
+                        <div class="star-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <p class="imdb-rating">8.0</p>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <p>John Wick</p>
+                        <p class="watch-now">Watch Now</p>
+                        <!-- <div class="watch-trailer"> -->
+
+                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
             </div>
         </div>
-    
-    
+
+
         <!-- footer section -->
         <footer>
             <p class="sign-in">Sign in for more access</p>
@@ -237,9 +176,3 @@
             <img src="./photos/amazon company logo.png" class="amazon-logo">
             <p class="light-font">&copy 1990-2023 by iMDb.com, Inc.</p>
         </footer>
-
-    </section>
-    <script src="./index.js"></script>
-</body>
-
-</html>
