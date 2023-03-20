@@ -29,11 +29,11 @@
         <!-- search container -->
         <div class="search-container">
                 <!-- search input -->
-                <input type="text" class="search-input" id="search-input" placeholder="Search iMDb..." id="movie-search-box" onkeyup="findMovies()" onclick="findMovies()">
+                <input type="text" class="search-input" id="search-input" placeholder="Search iMDb..." onkeyup="findMovies()" onclick="findMovies()">
                 <!-- search list -->
                 <div class="search-list hide-search-list" id="search-list">
                     <!-- list here -->
-                    <div class="search-list-item ">
+                    <!-- <div class="search-list-item ">
                         <div class="search-item-thumbnail">
                             <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="">
                         </div>
@@ -49,15 +49,19 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
         </div>
         <!-- end of search container -->
-        <p><a href="./favourites.html" class="favourite">Favourites</a></p>
+        <p class="favourite" id="favourite-btn">
+            <!-- <a href="./favourites.html" class="favourite"> -->
+                Favourites
+            <!-- </a> -->
+        </p>
         <p>Sign in</p>
     </nav>
 
-    <section class="container">
+    <section class="container" id="container">
         <div class="header">
     
             <!-- hero section -->
@@ -118,103 +122,12 @@
                         <!-- </div> -->
                     </div>
                 </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <a href="./movie-page.html">
-                        <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    </a>
-                    <!-- <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster"> -->
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <div class="movie-1">
-                    <!-- movie poster -->
-                    <img src="https://rukminim1.flixcart.com/image/416/416/kxtaxzk0/poster/a/b/y/medium-john-wick-john-wick-chapter-3-keanu-reeves-movie-poster-original-imaga6jqtsgrgn6f.jpeg?q=70" alt="movie poster">
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>John Wick</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
+                
     
             </div>
         </div>
     
+    </section>
     
         <!-- footer section -->
         <footer>
@@ -238,7 +151,6 @@
             <p class="light-font">&copy 1990-2023 by iMDb.com, Inc.</p>
         </footer>
 
-    </section>
     <script src="./index.js"></script>
 </body>
 

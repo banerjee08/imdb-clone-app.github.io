@@ -176,3 +176,16 @@
             <img src="./photos/amazon company logo.png" class="amazon-logo">
             <p class="light-font">&copy 1990-2023 by iMDb.com, Inc.</p>
         </footer>
+
+
+        container.innerHTML = `
+        <section class="container">
+            <!-- Favourite Section -->
+            <div class="explore">
+                <h3 class="explore-title">Your Favourite Movies & TV shows</h3>
+                <!-- movie display -->
+                <div class="movie-display">
+                </div>
+            </div>
+        </section>
+        `;
