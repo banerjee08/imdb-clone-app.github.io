@@ -3,21 +3,17 @@ const searchList = document.getElementById('search-list');
 const container = document.getElementById('container');
 const favouriteBtn = document.getElementById('favourite-btn');
 
-
 let sampleMovies = [];
 
 async function loadMovies(searchTerm) {
   await fetch(`http://www.omdbapi.com/?t=${searchTerm}&page=1&apikey=56d596e9`)
     .then((res) => res.json())
     .then((data) => {
-      //   console.log(data);
       displayMovieList(data);
       //   if ((data.Response = 'True')) {
       //   }
     });
 }
-
-// loadMovies('batman')
 
 function findMovies() {
   let searchTerm = searchInput.value.trim();
@@ -61,6 +57,7 @@ function displayMovieList(movie) {
         </div>
         `;
   }
+
   // rendering the list
   searchList.innerHTML = html;
   loadMovieDetails();
@@ -82,9 +79,11 @@ function loadMovieDetails() {
         `http://www.omdbapi.com/?i=${movie.id}&page=1&apikey=56d596e9`
       );
       const movieDetails = await result.json();
+
       // console.log(movieDetails);
       displayMovieDetails(movieDetails);
-      console.log(movieDetails)
+
+      // console.log(movieDetails);
       loadFavourites(movieDetails);
     });
   });
@@ -131,16 +130,34 @@ function displayMovieDetails(details) {
     `;
 }
 
+// rendering Favourite Movies
 favouriteBtn.addEventListener('click', function () {
-  renderFavourites()
+  renderFavourites();
+  // localStorage.clear();
+  // console.log(localStorage.getItem('myFavouriteMovie'));
+
+  // storing the movies from local storage in a variable
+  let moviesFromLocalStorage = JSON.parse(
+    localStorage.getItem('myFavouriteMovie')
+  );
+  if (moviesFromLocalStorage) {
+    favouriteMovieArray = moviesFromLocalStorage;
+    renderFavourites();
+  }
+  console.log(moviesFromLocalStorage);
 });
 
+// pushing Favourite movies to local storage and array
 function loadFavourites(movie) {
   container.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.classList.value === 'add-favourite-btn') {
-      favouriteMovieArray.push(movie.imdbID);
       favouriteMovieArray.push(movie);
+      // pushing the favourite movies in the local storage
+      localStorage.setItem(
+        'myFavouriteMovie',
+        JSON.stringify(favouriteMovieArray)
+      );
     }
   });
 }
@@ -155,9 +172,10 @@ function renderFavourites() {
             <h3 class="explore-title">Your Favourite Movies & TV shows</h3>
             <!-- movie display -->
             <div class="movie-display">
-  `
-    favouriteMovieArray.forEach(function(movie) {
-      html += `
+  `;
+  favouriteMovieArray.forEach(function (movie) {
+    // console.log(movie);
+    html += `
         <div class="movie-${count}">
                       <!-- movie poster -->
                       <img src="${
@@ -178,8 +196,9 @@ function renderFavourites() {
                       </div>
                   </div>
       `;
-      count++;
-    })
+    count++;
+  });
+
   html += `
               </div>
         </div>
@@ -187,5 +206,48 @@ function renderFavourites() {
   `;
 
   container.innerHTML = html;
-  
+}
+
+// generate movie ids of 10 movies
+const movieIdArray = [];
+const min = 444444;
+const max = 488888;
+for (let i = 0; i < 10; i++) {
+  let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
+  movieIdArray.push(randomMovieId);
+}
+// console.log(movieIdArray);
+
+// Generate new feature list
+let newFeatures = document.getElementById('new-features');
+
+document.addEventListener('DOMContentLoaded', loadTrailers());
+
+function loadTrailers() {
+  for (let i = 0; i < 3; i++) {
+    fetch(
+      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=56d596e9`
+    )
+      .then((res) => res.json())
+      .then((movie) => {
+        // console.log(movie.Poster);
+        console.log(movie.Title);
+
+        newFeatures.innerHTML += `
+    
+                <!-- trailer section -->
+                <div class="trailer-1">
+                <img src="${
+                  movie.Poster != 'N/A'
+                    ? movie.Poster
+                    : './photos/image_not_found.png'
+                }" alt="movie poster" class="poster-trailer">
+                    <div class="trailer-1-desc">
+                        <img src="./photos/play.png" alt="play sound">
+                        <p class="trailer-title">${movie.Title}</p>
+                    </div>
+                </div>
+        `;
+      });
+  }
 }
