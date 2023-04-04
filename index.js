@@ -141,25 +141,7 @@ function loadFavourites(movie) {
 favouriteBtn.addEventListener('click', function () {
   renderFavourites();
 });
-// const favMovie = []
-// pushing Favourite movies to local storage and array
-// function loadFavourites(movie) {
-//   favMovie.push(movie)
-//   console.log(favMovie)
 
-// container.addEventListener('click', function (e) {
-//   e.preventDefault();
-//   if (e.target.classList.value === 'add-favourite-btn') {
-//     favouriteMovieArray.push(movie);
-//   }
-//   console.log(favouriteMovieArray)
-//   // pushing the favourite movies in the local storage
-//   localStorage.setItem(
-//     'myFavouriteMovie',
-//     JSON.stringify(favouriteMovieArray)
-//   );
-// });
-// }
 
 function renderFavourites() {
   let count = 1;
@@ -243,8 +225,8 @@ function removeFromFavourites() {
 
   // generate movie ids of 10 movies
   const movieIdArray = [];
-  const min = 300000;
-  const max = 499999;
+  const min = 473443;
+  const max = 473453;
   for (let i = 0; i < 10; i++) {
     let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
     movieIdArray.push(randomMovieId);
@@ -282,40 +264,42 @@ function removeFromFavourites() {
   // Randomly Generate explore section
   let exploreSection = document.getElementById('movie-display');
 
-  // document.addEventListener('DOMContentLoaded', loadExploreSection());
+  document.addEventListener('DOMContentLoaded', loadExploreSection());
 
-  function loadExploreSection() {
-    for (let i = 3; i < 10; i++) {
-      fetch(
-        `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
-      )
-        .then((res) => res.json())
-        .then((movie) => {
-          exploreSection.innerHTML += `
-          <div class="movie-1">
-                    <!-- movie poster -->
-                    <img src="${movie.Poster != 'N/A'
-              ? movie.Poster
-              : './photos/image_not_found.png'
-            }" alt="movie poster" class="poster-trailer">
-                    <!-- movie details -->
-                    <div class="movie-details">
-                        <div class="star-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <p class="imdb-rating">8.0</p>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p>${movie.Title}</p>
-                        <p class="watch-now">Watch Now</p>
-                        <!-- <div class="watch-trailer"> -->
-    
-                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                        <!-- </div> -->
-                    </div>
-                </div>
+function loadExploreSection() {
+  for (let i = 3; i < 10; i++) {
+    fetch(
+      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
+    )
+      .then((res) => res.json())
+      .then((movie) => {
+        exploreSection.innerHTML += `
+          <div class="fav-movie-list">
+            <!-- movie poster -->
+            <img src="${
+              movie.Poster != 'N/A'
+                ? movie.Poster
+                : './photos/image_not_found.png'
+            }" alt="movie poster" class="fav-movie-poster">
+
+            <!-- movie details -->
+            <div class="movie-details">
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i>
+                <p class="imdb-rating">${movie.imdbRating}</p>
+                <i class="fa-regular fa-star fav-movie"></i>
+              </div>
+              <p>${movie.Title}</p>
+              <p class="watch-now">Watch Now</p>
+              <p class="watch-trailer">
+                <i class="fa-solid fa-play"></i>
+                Trailer
+              </p>
+            </div>
+          </div>
         `;
-        });
-    }
+      });
   }
+}
 
 
