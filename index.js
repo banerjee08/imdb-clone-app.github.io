@@ -6,12 +6,10 @@ const favouriteBtn = document.getElementById('favourite-btn');
 let sampleMovies = [];
 
 async function loadMovies(searchTerm) {
-  await fetch(`http://www.omdbapi.com/?t=${searchTerm}&page=1&apikey=56d596e9`)
+  await fetch(`http://www.omdbapi.com/?t=${searchTerm}&page=1&apikey=822ca33b`)
     .then((res) => res.json())
     .then((data) => {
       displayMovieList(data);
-      //   if ((data.Response = 'True')) {
-      //   }
     });
 }
 
@@ -67,8 +65,6 @@ function loadMovieDetails() {
   const searchListMovies = searchList.querySelectorAll('.search-list-item');
   searchListMovies.forEach((movie) => {
     movie.addEventListener('click', async () => {
-      // console.log(movie.id);
-
       // Hides the search list
       searchList.classList.add('hide-search-list');
 
@@ -76,15 +72,11 @@ function loadMovieDetails() {
       searchInput.value = '';
 
       const result = await fetch(
-        `http://www.omdbapi.com/?i=${movie.id}&page=1&apikey=56d596e9`
+        `http://www.omdbapi.com/?i=${movie.id}&page=1&apikey=822ca33b`
       );
       const movieDetails = await result.json();
-
-      // console.log(movieDetails);
       displayMovieDetails(movieDetails);
-
-      // console.log(movieDetails);
-      loadFavourites(movieDetails);
+      // loadFavourites(movieDetails);
     });
   });
 }
@@ -92,75 +84,80 @@ function loadMovieDetails() {
 function displayMovieDetails(details) {
   container.innerHTML = '';
   container.innerHTML = `
-        <section class="container" id="container">
-        <div class="movie-header">
-            <h3 class="movie-title">${details.Title}</h3>
+  <section class="container" id="container">
+    <h3 class="movie-title">${details.Title}</h3>
+    <div class="movie-header">
+      <div class="runtime">
+        <p>${details.Year}</p>
+        <p>${details.Runtime}</p>
+      </div>
+      <div class="star-rating movie-star-rating">
+        <p class="imdb-rating">
+          <i class="fa-solid fa-star"></i>
+          ${details.imdbRating}
+        </p>
+        <p class="add-favourite-btn" id="add-favourite-btn">
+            Add to your favourites<i class="fa-regular fa-star movie-page-star"></i>
+        </p>
+      </div>
 
-            <div class="runtime">
-                <p>${details.Year}</p>
-                <p>${details.Runtime}</p>
-            </div>
-
-            <div class="star-rating movie-star-rating">
-                <i class="fa-solid fa-star"></i>
-                <p class="imdb-rating">${details.imdbRating}</p>
-                <p class="add-favourite-btn">
-                    Add to your favourites<i class="fa-regular fa-star movie-page-star"></i>
-                </p>
-            </div>
-            <!-- hero section -->
-            <div class="hero">
-                <img src="${
-                  details.Poster != 'N/A'
-                    ? details.Poster
-                    : './photos/image_not_found.png'
-                }" alt="movie poster" class="hero-poster">
-            </div>
+      <!-- movie section -->
+      <div class="movie-container">
+        <div>
+            <img src="${
+              details.Poster != 'N/A'
+                ? details.Poster
+                : './photos/image_not_found.png'
+            }" alt="movie poster" >
         </div>
-            <div class="detailed-summary">
-                <p>Genre: <span class="highlight">${details.Genre}</span></p>
-                <p>Summary: <span class="highlight">${details.Plot}</span></p> 
-                <p>Director <span class="highlight">${
-                  details.Director
-                }</span></p>
-                <p>Writers <span class="highlight">${details.Writer}</span></p>
-                <p>Stars <span class="highlight">${details.Actors}</span></p>
-            </div>
+        <div class="detailed-summary">
+          <p>Genre: <span class="highlight">${details.Genre}</span></p>
+          <p>Summary: <span class="highlight">${details.Plot}</span></p> 
+          <p>Director <span class="highlight">${details.Director}</span></p>
+          <p>Writers <span class="highlight">${details.Writer}</span></p>
+          <p>Stars <span class="highlight">${details.Actors}</span></p>
+        </div>
+      </div>
+    </div>
+  </section>`;
+  loadFavourites(details);
+}
 
-    `;
+function loadFavourites(movie) {
+  // console.log(movie);
+  document.getElementById('add-favourite-btn').addEventListener('click', function () {
+    favouriteMovieArray.push(movie);
+    // pushing the favourite movies in the local storage
+    localStorage.setItem(
+      'myFavouriteMovie',
+      JSON.stringify(favouriteMovieArray)
+    );
+  })
 }
 
 // rendering Favourite Movies
 favouriteBtn.addEventListener('click', function () {
   renderFavourites();
-  // localStorage.clear();
-  // console.log(localStorage.getItem('myFavouriteMovie'));
-
-  // storing the movies from local storage in a variable
-  let moviesFromLocalStorage = JSON.parse(
-    localStorage.getItem('myFavouriteMovie')
-  );
-  if (moviesFromLocalStorage) {
-    favouriteMovieArray = moviesFromLocalStorage;
-    renderFavourites();
-  }
-  console.log(moviesFromLocalStorage);
 });
-
+// const favMovie = []
 // pushing Favourite movies to local storage and array
-function loadFavourites(movie) {
-  container.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (e.target.classList.value === 'add-favourite-btn') {
-      favouriteMovieArray.push(movie);
-      // pushing the favourite movies in the local storage
-      localStorage.setItem(
-        'myFavouriteMovie',
-        JSON.stringify(favouriteMovieArray)
-      );
-    }
-  });
-}
+// function loadFavourites(movie) {
+//   favMovie.push(movie)
+//   console.log(favMovie)
+
+// container.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   if (e.target.classList.value === 'add-favourite-btn') {
+//     favouriteMovieArray.push(movie);
+//   }
+//   console.log(favouriteMovieArray)
+//   // pushing the favourite movies in the local storage
+//   localStorage.setItem(
+//     'myFavouriteMovie',
+//     JSON.stringify(favouriteMovieArray)
+//   );
+// });
+// }
 
 function renderFavourites() {
   let count = 1;
@@ -173,31 +170,37 @@ function renderFavourites() {
             <!-- movie display -->
             <div class="movie-display">
   `;
-  favouriteMovieArray.forEach(function (movie) {
-    // console.log(movie);
-    html += `
-        <div class="movie-${count}">
-                      <!-- movie poster -->
-                      <img src="${
-                        movie.Poster != 'N/A'
-                          ? movie.Poster
-                          : './photos/image_not_found.png'
-                      }" alt="movie poster">
-                      <!-- movie details -->
-                      <div class="movie-details">
-                          <div class="star-rating">
-                              <i class="fa-solid fa-star"></i>
-                              <p class="imdb-rating">${movie.imdbRating}</p>
-                              <i class="fa-regular fa-star"></i>
-                          </div>
-                          <p>${movie.Title}</p>
-                          <p class="watch-now">Watch Now</p>
-                          <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-                      </div>
-                  </div>
+
+  // storing the movies from local storage in a variable
+  let moviesFromLocalStorage = JSON.parse(
+    localStorage.getItem('myFavouriteMovie')
+  );
+
+  if (moviesFromLocalStorage) {
+    favouriteMovieArray = moviesFromLocalStorage;
+    favouriteMovieArray.forEach(function (movie) {
+      html += `
+      <div class="movie-${count}">
+      <!-- movie poster -->
+      <img src="${
+        movie.Poster != 'N/A' ? movie.Poster : './photos/image_not_found.png'
+      }" alt="movie poster">
+      <!-- movie details -->
+      <div class="movie-details">
+      <div class="star-rating">
+      <i class="fa-solid fa-star"></i>
+      <p class="imdb-rating">${movie.imdbRating}</p>
+      <i class="fa-regular fa-star"></i>
+      </div>
+      <p>${movie.Title}</p>
+      <p class="watch-now">Watch Now</p>
+      <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
+      </div>
+      </div>
       `;
-    count++;
-  });
+      count++;
+    });
+  }
 
   html += `
               </div>
@@ -210,44 +213,81 @@ function renderFavourites() {
 
 // generate movie ids of 10 movies
 const movieIdArray = [];
-const min = 444444;
-const max = 488888;
+const min = 300000;
+const max = 499999;
 for (let i = 0; i < 10; i++) {
   let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
   movieIdArray.push(randomMovieId);
 }
-// console.log(movieIdArray);
 
-// Generate new feature list
+// Randomly Generate new feature list
 let newFeatures = document.getElementById('new-features');
 
-document.addEventListener('DOMContentLoaded', loadTrailers());
+// document.addEventListener('DOMContentLoaded', loadTrailers());
 
 function loadTrailers() {
   for (let i = 0; i < 3; i++) {
     fetch(
-      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=56d596e9`
+      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
     )
       .then((res) => res.json())
       .then((movie) => {
-        // console.log(movie.Poster);
-        console.log(movie.Title);
-
         newFeatures.innerHTML += `
+          <!-- trailer section -->
+            <div class="trailer-1">
+            <img src="${
+              movie.Poster != 'N/A'
+                ? movie.Poster
+                : './photos/image_not_found.png'
+            }" alt="movie poster" class="poster-trailer">
+              <div class="trailer-1-desc">
+                  <img src="./photos/play.png" alt="play sound">
+                  <p class="trailer-title">${movie.Title}</p>
+              </div>
+            </div>
+        `;
+      });
+  }
+}
+
+// Randomly Generate explore section
+let exploreSection = document.getElementById('movie-display');
+
+// document.addEventListener('DOMContentLoaded', loadExploreSection());
+
+function loadExploreSection() {
+  for (let i = 3; i < 10; i++) {
+    fetch(
+      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
+    )
+      .then((res) => res.json())
+      .then((movie) => {
+        exploreSection.innerHTML += `
+          <div class="movie-1">
+                    <!-- movie poster -->
+                    <img src="${
+                      movie.Poster != 'N/A'
+                        ? movie.Poster
+                        : './photos/image_not_found.png'
+                    }" alt="movie poster" class="poster-trailer">
+                    <!-- movie details -->
+                    <div class="movie-details">
+                        <div class="star-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <p class="imdb-rating">8.0</p>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <p>${movie.Title}</p>
+                        <p class="watch-now">Watch Now</p>
+                        <!-- <div class="watch-trailer"> -->
     
-                <!-- trailer section -->
-                <div class="trailer-1">
-                <img src="${
-                  movie.Poster != 'N/A'
-                    ? movie.Poster
-                    : './photos/image_not_found.png'
-                }" alt="movie poster" class="poster-trailer">
-                    <div class="trailer-1-desc">
-                        <img src="./photos/play.png" alt="play sound">
-                        <p class="trailer-title">${movie.Title}</p>
+                        <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
+                        <!-- </div> -->
                     </div>
                 </div>
         `;
       });
   }
 }
+
+// localStorage.clear()

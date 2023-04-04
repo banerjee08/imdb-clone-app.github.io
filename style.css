@@ -134,7 +134,8 @@ nav{
 
 .favourite{
     text-decoration: none;
-    color: #ffffff
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .favourite:hover,
@@ -236,6 +237,10 @@ footer{
     color: #ef3510;
 }
 
+.fa-star{
+    margin-right: 10px;
+}
+
 .explore{
     /* border: 1px red solid; */
     padding: 25px 0;
@@ -314,7 +319,7 @@ footer{
 
 /* typography */
 .movie-title{
-    font-size: 30px;
+    font-size: 50px;
     /* border: 1px red solid; */
 }
 
@@ -326,13 +331,28 @@ footer{
 
 .runtime p{
     margin: 0;
-    font-size: 15px;
+    font-size: 25px;
 }
 
 .movie-star-rating{
+    /* border: 1px red solid; */
     padding: 15px 0;
-    font-size: 15px;
+    font-size: 20px;
     margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-favourite-btn{
+    /* border: 1px solid red; */
+    margin-left: auto;
+}
+
+.add-favourite-btn:hover{
+    color: var(--highlight-color);
+    /* font-size: 22px; */
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .movie-star-rating p{
@@ -345,11 +365,26 @@ footer{
 
 .detailed-summary{
     padding: 25px 0;
+    /* border: green 1px solid; */
+    margin: auto 30px;
+}
+
+.detailed-summary p{
+    padding-bottom: 10px;
+
 }
 
 .highlight{
     color: #5699ef;
     font-weight: 400;
     padding-left: 25px;
+}
+
+
+
+.movie-container{
+    /* border: 1px solid red; */
+    display: flex;
+    margin-bottom: 50px;
 }
 
