@@ -125,14 +125,16 @@ function displayMovieDetails(details) {
 
 function loadFavourites(movie) {
   // console.log(movie);
-  document.getElementById('add-favourite-btn').addEventListener('click', function () {
-    favouriteMovieArray.push(movie);
-    // pushing the favourite movies in the local storage
-    localStorage.setItem(
-      'myFavouriteMovie',
-      JSON.stringify(favouriteMovieArray)
-    );
-  })
+  document
+    .getElementById('add-favourite-btn')
+    .addEventListener('click', function () {
+      favouriteMovieArray.push(movie);
+      // pushing the favourite movies in the local storage
+      localStorage.setItem(
+        'myFavouriteMovie',
+        JSON.stringify(favouriteMovieArray)
+      );
+    });
 }
 
 // rendering Favourite Movies
@@ -164,11 +166,11 @@ function renderFavourites() {
   let html = '';
   html += `
     <section class="container">
-        <!-- Favourite Section -->
-        <div class="explore">
-            <h3 class="explore-title">Your Favourite Movies & TV shows</h3>
-            <!-- movie display -->
-            <div class="movie-display">
+      <!-- Favourite Section -->
+      <div class="fav-section">
+        <h3 class="fav-title">Your Favourite Movies & TV shows</h3>
+          <!-- movie display -->
+          <div class="movie-display">
   `;
 
   // storing the movies from local storage in a variable
@@ -178,24 +180,25 @@ function renderFavourites() {
 
   if (moviesFromLocalStorage) {
     favouriteMovieArray = moviesFromLocalStorage;
+
     favouriteMovieArray.forEach(function (movie) {
       html += `
-      <div class="movie-${count}">
-      <!-- movie poster -->
-      <img src="${
-        movie.Poster != 'N/A' ? movie.Poster : './photos/image_not_found.png'
-      }" alt="movie poster">
-      <!-- movie details -->
-      <div class="movie-details">
-      <div class="star-rating">
-      <i class="fa-solid fa-star"></i>
-      <p class="imdb-rating">${movie.imdbRating}</p>
-      <i class="fa-regular fa-star"></i>
-      </div>
-      <p>${movie.Title}</p>
-      <p class="watch-now">Watch Now</p>
-      <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
-      </div>
+      <div class="fav-movie-list">
+        <!-- movie poster -->
+        <img src="${
+          movie.Poster != 'N/A' ? movie.Poster : './photos/image_not_found.png'
+        }" alt="movie poster" class="fav-movie-poster">
+        <!-- movie details -->
+        <div class="movie-details">
+          <div class="star-rating">
+            <i class="fa-solid fa-star"></i>
+            <p class="imdb-rating">${movie.imdbRating}</p>
+            <i class="fa-regular fa-star fav-movie" id="${count}"></i>
+          </div>
+          <p>${movie.Title}</p>
+          <p class="watch-now">Watch Now</p>
+          <p class="watch-trailer"><i class="fa-solid fa-play"></i>Trailer</p>
+        </div>
       </div>
       `;
       count++;
@@ -203,42 +206,68 @@ function renderFavourites() {
   }
 
   html += `
-              </div>
         </div>
+      </div>
     </section>
   `;
-
   container.innerHTML = html;
+  removeFromFavourites();
 }
 
-// generate movie ids of 10 movies
-const movieIdArray = [];
-const min = 300000;
-const max = 499999;
-for (let i = 0; i < 10; i++) {
-  let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
-  movieIdArray.push(randomMovieId);
+function removeFromFavourites() {
+  // getting the data from local storage
+  let moviesFromLocalStorage = JSON.parse(
+    localStorage.getItem('myFavouriteMovie')
+    );
+    if (moviesFromLocalStorage) {
+      favouriteMovieArray = moviesFromLocalStorage;
+    }
+    
+  let favourites = document.getElementsByClassName('fav-movie');
+  // console.log(favourites);
+
+  for (let fav of favourites) {
+    fav.addEventListener('click', function (e) {
+      let index = e.target.id - 1;
+
+      // removing the item from the array
+      favouriteMovieArray.splice(index, 1)
+      localStorage.setItem(
+        'myFavouriteMovie',
+        JSON.stringify(favouriteMovieArray)
+        );
+        renderFavourites();
+    })
+  }
 }
 
-// Randomly Generate new feature list
-let newFeatures = document.getElementById('new-features');
+  // generate movie ids of 10 movies
+  const movieIdArray = [];
+  const min = 300000;
+  const max = 499999;
+  for (let i = 0; i < 10; i++) {
+    let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
+    movieIdArray.push(randomMovieId);
+  }
 
-// document.addEventListener('DOMContentLoaded', loadTrailers());
+  // Randomly Generate new feature list
+  let newFeatures = document.getElementById('new-features');
 
-function loadTrailers() {
-  for (let i = 0; i < 3; i++) {
-    fetch(
-      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
-    )
-      .then((res) => res.json())
-      .then((movie) => {
-        newFeatures.innerHTML += `
+  // document.addEventListener('DOMContentLoaded', loadTrailers());
+
+  function loadTrailers() {
+    for (let i = 0; i < 3; i++) {
+      fetch(
+        `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
+      )
+        .then((res) => res.json())
+        .then((movie) => {
+          newFeatures.innerHTML += `
           <!-- trailer section -->
             <div class="trailer-1">
-            <img src="${
-              movie.Poster != 'N/A'
-                ? movie.Poster
-                : './photos/image_not_found.png'
+            <img src="${movie.Poster != 'N/A'
+              ? movie.Poster
+              : './photos/image_not_found.png'
             }" alt="movie poster" class="poster-trailer">
               <div class="trailer-1-desc">
                   <img src="./photos/play.png" alt="play sound">
@@ -246,30 +275,29 @@ function loadTrailers() {
               </div>
             </div>
         `;
-      });
+        });
+    }
   }
-}
 
-// Randomly Generate explore section
-let exploreSection = document.getElementById('movie-display');
+  // Randomly Generate explore section
+  let exploreSection = document.getElementById('movie-display');
 
-// document.addEventListener('DOMContentLoaded', loadExploreSection());
+  // document.addEventListener('DOMContentLoaded', loadExploreSection());
 
-function loadExploreSection() {
-  for (let i = 3; i < 10; i++) {
-    fetch(
-      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
-    )
-      .then((res) => res.json())
-      .then((movie) => {
-        exploreSection.innerHTML += `
+  function loadExploreSection() {
+    for (let i = 3; i < 10; i++) {
+      fetch(
+        `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
+      )
+        .then((res) => res.json())
+        .then((movie) => {
+          exploreSection.innerHTML += `
           <div class="movie-1">
                     <!-- movie poster -->
-                    <img src="${
-                      movie.Poster != 'N/A'
-                        ? movie.Poster
-                        : './photos/image_not_found.png'
-                    }" alt="movie poster" class="poster-trailer">
+                    <img src="${movie.Poster != 'N/A'
+              ? movie.Poster
+              : './photos/image_not_found.png'
+            }" alt="movie poster" class="poster-trailer">
                     <!-- movie details -->
                     <div class="movie-details">
                         <div class="star-rating">
@@ -286,8 +314,8 @@ function loadExploreSection() {
                     </div>
                 </div>
         `;
-      });
+        });
+    }
   }
-}
 
-// localStorage.clear()
+
