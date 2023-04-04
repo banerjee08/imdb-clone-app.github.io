@@ -3,7 +3,11 @@ const searchList = document.getElementById('search-list');
 const container = document.getElementById('container');
 const favouriteBtn = document.getElementById('favourite-btn');
 
-let sampleMovies = [];
+// empty string
+let html = '';
+
+// empty array
+let favouriteMovieArray = [];
 
 async function loadMovies(searchTerm) {
   await fetch(`http://www.omdbapi.com/?t=${searchTerm}&page=1&apikey=822ca33b`)
@@ -22,12 +26,6 @@ function findMovies() {
     searchList.classList.add('hide-search-list');
   }
 }
-
-// empty string
-let html = '';
-
-// empty array
-let favouriteMovieArray = [];
 
 function displayMovieList(movie) {
   searchList.innerHTML = '';
@@ -76,7 +74,6 @@ function loadMovieDetails() {
       );
       const movieDetails = await result.json();
       displayMovieDetails(movieDetails);
-      // loadFavourites(movieDetails);
     });
   });
 }
@@ -124,7 +121,6 @@ function displayMovieDetails(details) {
 }
 
 function loadFavourites(movie) {
-  // console.log(movie);
   document
     .getElementById('add-favourite-btn')
     .addEventListener('click', function () {
@@ -141,7 +137,6 @@ function loadFavourites(movie) {
 favouriteBtn.addEventListener('click', function () {
   renderFavourites();
 });
-
 
 function renderFavourites() {
   let count = 1;
@@ -187,6 +182,7 @@ function renderFavourites() {
     });
   }
 
+  // adding the rest of the html
   html += `
         </div>
       </div>
@@ -200,56 +196,59 @@ function removeFromFavourites() {
   // getting the data from local storage
   let moviesFromLocalStorage = JSON.parse(
     localStorage.getItem('myFavouriteMovie')
-    );
-    if (moviesFromLocalStorage) {
-      favouriteMovieArray = moviesFromLocalStorage;
-    }
-    
+  );
+  if (moviesFromLocalStorage) {
+    favouriteMovieArray = moviesFromLocalStorage;
+  }
+
   let favourites = document.getElementsByClassName('fav-movie');
-  // console.log(favourites);
 
   for (let fav of favourites) {
     fav.addEventListener('click', function (e) {
       let index = e.target.id - 1;
 
       // removing the item from the array
-      favouriteMovieArray.splice(index, 1)
+      favouriteMovieArray.splice(index, 1);
       localStorage.setItem(
         'myFavouriteMovie',
         JSON.stringify(favouriteMovieArray)
-        );
-        renderFavourites();
-    })
+      );
+      renderFavourites();
+    });
   }
 }
 
-  // generate movie ids of 10 movies
-  const movieIdArray = [];
-  const min = 473443;
-  const max = 473453;
-  for (let i = 0; i < 10; i++) {
-    let randomMovieId = Math.floor(Math.random() * (max - min + 1) + min);
-    movieIdArray.push(randomMovieId);
-  }
+// movie ids of 10 movies
+const movieIdArray = [
+  'tt0473445',
+  'tt0473449',
+  'tt1847521',
+  'tt0473453',
+  'tt0473454',
+  'tt0473455',
+  'tt0473456',
+  'tt0286716',
+  'tt0096895',
+  'tt2911666',
+];
 
-  // Randomly Generate new feature list
-  let newFeatures = document.getElementById('new-features');
+// Randomly Generate new feature list
+let newFeatures = document.getElementById('new-features');
 
-  // document.addEventListener('DOMContentLoaded', loadTrailers());
+document.addEventListener('DOMContentLoaded', loadTrailers());
 
-  function loadTrailers() {
-    for (let i = 0; i < 3; i++) {
-      fetch(
-        `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
-      )
-        .then((res) => res.json())
-        .then((movie) => {
-          newFeatures.innerHTML += `
+function loadTrailers() {
+  for (let i = 0; i < 3; i++) {
+    fetch(`http://www.omdbapi.com/?i=${movieIdArray[i]}&page=1&apikey=822ca33b`)
+      .then((res) => res.json())
+      .then((movie) => {
+        newFeatures.innerHTML += `
           <!-- trailer section -->
-            <div class="trailer-1">
-            <img src="${movie.Poster != 'N/A'
-              ? movie.Poster
-              : './photos/image_not_found.png'
+            <div class="trailers">
+            <img src="${
+              movie.Poster != 'N/A'
+                ? movie.Poster
+                : './photos/image_not_found.png'
             }" alt="movie poster" class="poster-trailer">
               <div class="trailer-1-desc">
                   <img src="./photos/play.png" alt="play sound">
@@ -257,20 +256,18 @@ function removeFromFavourites() {
               </div>
             </div>
         `;
-        });
-    }
+      });
   }
+}
 
-  // Randomly Generate explore section
-  let exploreSection = document.getElementById('movie-display');
+// Randomly Generate explore section
+let exploreSection = document.getElementById('movie-display');
 
-  document.addEventListener('DOMContentLoaded', loadExploreSection());
+document.addEventListener('DOMContentLoaded', loadExploreSection());
 
 function loadExploreSection() {
   for (let i = 3; i < 10; i++) {
-    fetch(
-      `http://www.omdbapi.com/?i=tt0${movieIdArray[i]}&page=1&apikey=822ca33b`
-    )
+    fetch(`http://www.omdbapi.com/?i=${movieIdArray[i]}&page=1&apikey=822ca33b`)
       .then((res) => res.json())
       .then((movie) => {
         exploreSection.innerHTML += `
@@ -301,5 +298,3 @@ function loadExploreSection() {
       });
   }
 }
-
-
