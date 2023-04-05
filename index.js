@@ -65,7 +65,6 @@ function loadMovieDetails() {
     movie.addEventListener('click', async () => {
       // Hides the search list
       searchList.classList.add('hide-search-list');
-
       // empty the search box
       searchInput.value = '';
 
@@ -124,6 +123,7 @@ function loadFavourites(movie) {
   document
     .getElementById('add-favourite-btn')
     .addEventListener('click', function () {
+      // pushing the favourite movie in the array
       favouriteMovieArray.push(movie);
       // pushing the favourite movies in the local storage
       localStorage.setItem(
@@ -157,7 +157,7 @@ function renderFavourites() {
 
   if (moviesFromLocalStorage) {
     favouriteMovieArray = moviesFromLocalStorage;
-
+console.log(favouriteMovieArray);
     favouriteMovieArray.forEach(function (movie) {
       html += `
       <div class="fav-movie-list">
@@ -232,7 +232,7 @@ const movieIdArray = [
   'tt2911666',
 ];
 
-// Randomly Generate new feature list
+// Movies in new feature list
 let newFeatures = document.getElementById('new-features');
 
 document.addEventListener('DOMContentLoaded', loadTrailers());
@@ -260,7 +260,7 @@ function loadTrailers() {
   }
 }
 
-// Randomly Generate explore section
+// Movies in explore section
 let exploreSection = document.getElementById('movie-display');
 
 document.addEventListener('DOMContentLoaded', loadExploreSection());
